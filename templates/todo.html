@@ -1,0 +1,38 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <a href="http://127.0.0.1:8000/accounts/register" class="button" name='register'>Register</a>
+    <a href="http://127.0.0.1:8000/accounts/login" class="button" name='login'>Login</a>
+    
+    <h3>Hello {{username}} !!</h3>
+    <img src="{%static 'index.png' %}" height="50px" width="50px">
+    
+    <center><h1>THIS IS A SIMPLE TODO LIST MAKING APP</h1></center>
+    <h2>Please make your list down here :</h2>
+    
+    <ul>
+    {%for todo in allitems%}
+    <li><b>{{todo.content}}</b>
+    
+    <form action='/tododelete/{{todo.id}}/'  style='display:inline;' method='POST'>{%csrf_token%}
+        <input type='submit' value='delete'/>
+    </form>
+    </li>
+    {%endfor%}
+    </ul>
+    <form action='/todoadd/' method="POST">{%csrf_token%}
+        <input type='text'name='content'><br>
+        <input type='submit' value='add'><br>
+
+    </form>
+
+</body>
+</html>
